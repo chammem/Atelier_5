@@ -31,13 +31,19 @@ class Book
     #[ORM\ManyToOne(inversedBy: 'books')]
     private ?Author $author = null;
 
-    
-    private Collection $readers;
+    #[ORM\ManyToMany(targetEntity: Reader::class, mappedBy: 'readers')]
+    private Collection $readersbooks;
 
     public function __construct()
     {
-        $this->readers = new ArrayCollection();
+        $this->readersbooks = new ArrayCollection();
     }
+
+    
+  
+
+   
+   
 
     public function getRef(): ?int
     {
@@ -110,7 +116,39 @@ class Book
         return $this;
     }
 
+    /**
+     * @return Collection<int, Reader>
+     */
+    public function getReadersbooks(): Collection
+    {
+        return $this->readersbooks;
+    }
+
+    public function addReadersbook(Reader $readersbook): static
+    {
+        if (!$this->readersbooks->contains($readersbook)) {
+            $this->readersbooks->add($readersbook);
+            $readersbook->addReader($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReadersbook(Reader $readersbook): static
+    {
+        if ($this->readersbooks->removeElement($readersbook)) {
+            $readersbook->removeReader($this);
+        }
+
+        return $this;
+    }
+
+  
+
+    
+
    
 
+   
  
 }
