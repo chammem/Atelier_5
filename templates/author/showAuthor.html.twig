@@ -1,0 +1,40 @@
+<h1>Table Author </h1>
+
+
+<h4>recherche les auteurs dont le nb de livres est compris entre deux valeurs </h4>
+{{form_start(f) }}
+{{form_label(f.min)}}
+{{form_widget(f.min) }}
+{{form_label(f.max)}}
+{{form_widget(f.max) }}
+{{form_end(f) }}
+
+<table border="5">
+   <tr>
+        <td>id</td>
+        <td>username</td>
+        <td>email</td>
+        <td>nb_books</td>
+        <td>modifier</td>
+        <td>supprimer</td>
+    </tr>
+    {% for i in author %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.username}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.nbbooks}}</td>
+        <td><a href="{{ path('editAuthor', {'id': i.id}) }}">edit</a> 
+        <td><a href="{{ path('deleteAuthor', {'id': i.id}) }}">supprimer</a> 
+    </tr>
+    {% endfor %}
+</table>
+
+
+<hr>
+<button><a href="{{ path('addAuthor') }}">Ajouter author</a></button>
+
+<hr>
+<h3>Supprimer les auteur dont le nombre des livres est égale à 0</h3>
+
+<button><a href="{{ path('showdelete') }}"> Afficher </a></button>

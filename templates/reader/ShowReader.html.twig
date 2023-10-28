@@ -1,0 +1,22 @@
+<h1>Table Reader </h1>
+
+<table border="5">
+   <tr>
+        <td>id</td>
+        <td>username</td>
+        <td>modifier</td>
+        <td>supprimer</td>
+    </tr>
+    {% for i in reader %}
+    <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.username|upper}}</td>
+        <td><a href="{{ path('editrReader', {'id': i.id}) }}">edit</a> 
+        <td><a href="{{ path('deleteReader', {'id': i.id}) }}">supprimer</a> 
+    </tr>
+    {% endfor %}
+</table>
+
+
+<hr>
+<button><a href="{{ path('addReader') }}">Ajouter reader</a></button>

@@ -1,0 +1,60 @@
+<h1>Table Book </h1>
+
+<h4>Chercher les livres selon la réference : </h4>
+{{form_start(f) }}
+{{form_label(f.ref)}}
+{{form_widget(f.ref) }}
+{{form_end(f) }}
+
+<h4>Les livres publiés avant l’année 2023 dont l’auteur a plus de 35 livres : </h4>
+
+<button><a href="{{ path('showbookparannee') }}"> Afficher </a></button>
+
+<hr>
+
+<h4>Modification de la catégorie des livres de ‘William Shakespear’ </h4>
+
+<button><a href="{{ path('updatebook') }}"> Appliquer </a></button>
+
+<hr>
+
+<table border="5">
+   <tr>
+        <td>Ref</td>
+        <td>Title</td>
+        <td>Publication_date</td>
+        <td>Published</td>
+        <td>Category</td>
+        <td>Author</td>
+        <td>Author Number of book</td>
+        <td>Modifier</td>
+        <td>Supprimer</td>
+        
+    </tr>
+    {% for i in book %}
+    <tr>
+        <td>{{i.ref}}</td>
+        <td>{{i.title}}</td>
+        <td>{{i.pubplicationDate|date("d/m/Y")}}</td>
+        <td>{{i.published}}</td>
+         <td>{{i.category}}</td>
+        <td>{{i.author}}</td>
+        <td>{{i.author.nbbooks}}</td>
+        <td><a href="{{ path('editBook', {'ref': i.ref}) }}">edit</a> 
+        <td><a href="{{ path('deleteBook', {'ref': i.ref}) }}">supprimer</a> 
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+<p> Number of books published : {{nbPublished}} </p>
+<p> Number of books unpublished : {{nbUnPublished}} </p>
+ </p>
+
+<button><a href="{{ path('addBook') }}"> Ajouter livre</a></button>
+<p> The number of books in the category Science fiction est : {{somme}} </p>
+
+
+<h3>Liste des livres publiés entre 2014 et 2018 : </h3>
+
+<button><a href="{{ path('bookIneYear') }}"> Afficher </a></button>

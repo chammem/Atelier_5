@@ -1,0 +1,9 @@
+{% for book in books %}
+    <h4>{{ book.title }}</h4>
+    <h4>{{ book.pubplicationDate|date("d/m/Y") }}</h4>
+    <h4>{{ book.author }}</h4>
+    <h4>************</h4>
+{% endfor %}
+
+
+
