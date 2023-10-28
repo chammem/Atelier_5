@@ -33,22 +33,26 @@ class BookController extends AbstractController
         $form= $this->createForm(SearchType::class);
         $form->handleRequest($req);
 
-    //Chercher les livres selon username d'author
-
         $somme= $bookRepository->sommeScience();
         $nbPublished= $bookRepository->nbPublished();
         $nbUnPublished= $bookRepository->nbUnPublished();
+
+    //Chercher les livres selon username d'author
+
+        
         if($form->isSubmitted()){
-            $Datainput=$form->get('ref')->getData();
-            $books=$bookRepository->searchbook($Datainput);
             $somme= $bookRepository->sommeScience();
             $nbPublished= $bookRepository->nbPublished();
             $nbUnPublished= $bookRepository->nbUnPublished();
+            $Datainput=$form->get('ref')->getData();
+            $books=$bookRepository->searchbook($Datainput);
+            
             return $this->renderForm('book/showBook.html.twig', [
                 'book' => $books,
                 'f'=> $form,
                 'somme' => $somme,
-                'nbPublished' => $nbPublished
+                'nbPublished' => $nbPublished,
+                'nbUnPublished' => $nbUnPublished
             ]);
         }
       
@@ -75,7 +79,19 @@ class BookController extends AbstractController
          $somme= $bookRepository->sommeScience();
          $nbPublished= $bookRepository->nbPublished();
          $nbUnPublished= $bookRepository->nbUnPublished();
-
+         if($form->isSubmitted()){
+            $Datainput=$form->get('ref')->getData();
+            $books=$bookRepository->searchbook($Datainput);
+            $somme= $bookRepository->sommeScience();
+            $nbPublished= $bookRepository->nbPublished();
+            $nbUnPublished= $bookRepository->nbUnPublished();
+            return $this->renderForm('book/showBook.html.twig', [
+                'book' => $books,
+                'f'=> $form,
+                'somme' => $somme,
+                'nbPublished' => $nbPublished,
+                'nbUnPublished' => $nbUnPublished
+            ]);}
         return $this->renderForm('book/showBook.html.twig', [
             'book' => $book,
             'f'=> $form,
@@ -108,7 +124,7 @@ class BookController extends AbstractController
                 'somme' => $somme,
                 'nbPublished' => $nbPublished,
                 'nbUnPublished' => $nbUnPublished
-            ]);
+            ]);}
 
         return $this->renderForm('book/showBook.html.twig', [
             'book' => $book,
@@ -117,7 +133,7 @@ class BookController extends AbstractController
             'nbPublished' => $nbPublished,
             'nbUnPublished' => $nbUnPublished
         ]);
-    }}
+    }
 
 //les livres entre 2014 et 2018
     #[Route('/bookIneYear', name: 'bookIneYear')]
